@@ -27,9 +27,9 @@
 	</group>
 
 	<group label="Complex Types" color="rgb(255,200,255)">
-		<type label="Array" length="0" sql="ARRAY<data_type>" quote="" />
-		<type label="Map" length="0" sql="MAP<primitive_type, data_type>" quote="" />
-		<type label="Struct" length="0" sql="STRUCT<col_name : data_type [COMMENT col_comment], ...>" quote="" />
-		<type label="Union" length="0" sql="UNIONTYPE<data_type, data_type, ...>" quote="" />
+		<type label="Array" length="0" sql="ARRAY" quote="" />
+		<type label="Map" length="0" sql="MAP" quote="" />
+		<type label="Struct" length="0" sql="STRUCT" quote="" />
+		<type label="Union" length="0" sql="UNIONTYPE" quote="" />
 	</group>
 </datatypes>
