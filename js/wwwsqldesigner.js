@@ -282,6 +282,7 @@ SQL.Designer.prototype.toXML = function() {
 		xml += this.tables[i].toXML();
 	}
 	xml += "</sql>\n";
+	xml = vkbeautify.xml(xml);
 	return xml;
 }
 
