@@ -1,13 +1,13 @@
 SQL.Designer = function() {
 	SQL.Designer = this;
-	
+
 	this.tables = [];
 	this.relations = [];
 	this.title = document.title;
-	
+
 	SQL.Visual.apply(this);
 	new SQL.Toggle(OZ.$("toggle"));
-	
+
 	this.dom.container = OZ.$("area");
 	this.minSize = [
 		this.dom.container.offsetWidth,
@@ -15,7 +15,7 @@ SQL.Designer = function() {
 	];
 	this.width = this.minSize[0];
 	this.height = this.minSize[1];
-	
+
 	this.typeIndex = false;
 	this.fkTypeFor = false;
 
@@ -42,12 +42,12 @@ SQL.Designer.prototype.sync = function() {
 		w = Math.max(w, t.x + t.width);
 		h = Math.max(h, t.y + t.height);
 	}
-	
+
 	this.width = w;
 	this.height = h;
 	this.map.sync();
 
-	if (this.vector) {	
+	if (this.vector) {
 		this.dom.svg.setAttribute("width", this.width);
 		this.dom.svg.setAttribute("height", this.height);
 	}
@@ -110,7 +110,7 @@ SQL.Designer.prototype.init2 = function() { /* secondary init, after locale & da
 	this.window = new SQL.Window(this);
 
 	this.sync();
-	
+
 	OZ.$("docs").value = _("docs");
 
 	var url = window.location.href;
@@ -128,7 +128,7 @@ SQL.Designer.prototype.getMaxZ = function() { /* find max zIndex */
 		var z = this.tables[i].getZ();
 		if (z > max) { max = z; }
 	}
-	
+
 	OZ.$("controls").style.zIndex = max+5;
 	return max;
 }
@@ -194,9 +194,9 @@ SQL.Designer.prototype.getOption = function(name) {
 		case "staticpath": return CONFIG.STATIC_PATH || "";
 		case "xhrpath": return CONFIG.XHR_PATH || "";
 		case "snap": return 0;
-		case "showsize": return 0;
-		case "showtype": return 0;
-		case "pattern": return "%R_%T";
+		case "showsize": return 1;
+		case "showtype": return 1;
+		case "pattern": return "%T_%R";
 		case "hide": return false;
 		case "vector": return true;
 		case "style": return "material-inspired";
@@ -234,7 +234,7 @@ SQL.Designer.prototype.alignTables = function() {
 	var x = 10;
 	var y = 10;
 	var max = 0;
-	
+
 	this.tables.sort(function(a,b){
 		return b.getRelations().length - a.getRelations().length;
 	});
@@ -267,7 +267,7 @@ SQL.Designer.prototype.toXML = function() {
 	xml += '<!-- SQL XML created by WWW SQL Designer, https://github.com/ondras/wwwsqldesigner/ -->\n';
 	xml += '<!-- Active URL: ' + location.href + ' -->\n';
 	xml += '<sql>\n';
-	
+
 	/* serialize datatypes */
 	if (window.XMLSerializer) {
 		var s = new XMLSerializer();
@@ -277,7 +277,7 @@ SQL.Designer.prototype.toXML = function() {
 	} else {
 		alert(_("errorxml")+': '+e.message);
 	}
-	
+
 	for (var i=0;i<this.tables.length;i++) {
 		xml += this.tables[i].toXML();
 	}
@@ -296,8 +296,8 @@ SQL.Designer.prototype.fromXML = function(node) {
 	}
 
 	for (var i=0;i<this.tables.length;i++) { /* ff one-pixel shift hack */
-		this.tables[i].select(); 
-		this.tables[i].deselect(); 
+		this.tables[i].select();
+		this.tables[i].deselect();
 	}
 
 	/* relations */
@@ -306,7 +306,7 @@ SQL.Designer.prototype.fromXML = function(node) {
 		var rel = rs[i];
 		var tname = rel.getAttribute("table");
 		var rname = rel.getAttribute("row");
-		
+
 		var t1 = this.findNamedTable(tname);
 		if (!t1) { continue; }
 		var r1 = t1.findNamedRow(rname);
@@ -321,7 +321,7 @@ SQL.Designer.prototype.fromXML = function(node) {
 
 		this.addRelation(r1, r2);
 	}
-	
+
 	this.sync();
 }
 

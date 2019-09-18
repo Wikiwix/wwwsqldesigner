@@ -1,6 +1,6 @@
 var CONFIG = {
 	AVAILABLE_DBS: ["hiveql", "mysql", "sqlite", "web2py", "mssql", "postgresql", "oracle", "sqlalchemy", "vfp9", "cubrid", "web2py"],
-	DEFAULT_DB: "mysql",
+	DEFAULT_DB: "hiveql",
 
 	AVAILABLE_LOCALES: ["ar", "cs", "de", "el", "en", "eo", "es", "fr", "hu", "it", "ja", "ko", "nl", "pl", "pt_BR", "ro", "ru", "sv", "tr", "zh"],
 	DEFAULT_LOCALE: "en",
